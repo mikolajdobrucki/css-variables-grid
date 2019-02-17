@@ -1,0 +1,184 @@
+/* variables */
+:root {
+  --container-max-width: 1140px;
+  --grid-columns: 12;
+  --grid-gutter-width: 30px;
+}
+
+/* grid classes */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  padding-right: calc(var(--grid-gutter-width) / 2);
+  padding-left: calc(var(--grid-gutter-width) / 2);
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(var(--grid-gutter-width) / -2);
+  margin-left: calc(var(--grid-gutter-width) / -2);
+  justify-content: var(--justify-content);
+  align-items: var(--align-items);
+}
+[class^="col"] {
+  padding-left: var(--grid-gutter-width);
+  padding-right: var(--grid-gutter-width);
+  width: 100%; /* or --col: var(--grid-columns); --> make items full-width when no default value for col (smallest breakpoint is set) */
+
+  --fixed-col-flex-grow: calc( var(--column-width) - var(--column-width));
+  --fixed-col-flex-basis: calc( var(--column-width) / var(--grid-columns) * 100% );
+  flex-basis: var(--fixed-col-flex-basis, 0);
+  flex-grow: var(--fixed-col-flex-grow, 1);
+  
+  --column-width: var(--col); /* we need this value to diffrentiate basic xs width from the active width */
+  --column-offset: var(--offset);
+
+  align-self: var(--align-self);
+  order: var(--column-order);
+  margin-left: calc( var(--column-offset) / var(--grid-columns) * 100% );
+}
+.col-auto {
+  width: auto;
+  flex: 0 0 auto;
+}
+.col-sm,.col-md,.col-lg,.col-xl {
+  flex-basis: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+
+/* responsive grid */
+@media (min-width: 576px) {
+  [class^="col"] {
+    --col-sm: var(--col); /* fallback for --col-sm */
+    --column-width: var(--col-sm); /* if --col-sm is set inline it takes this value, if not it takes a fallback specified above */
+
+    --offset-sm: var(--offset);
+    --column-offset: var(--offset-sm);
+  }
+  .col-sm {
+    flex-basis: var(--fixed-col-flex-basis, 0);
+    flex-grow: var(--fixed-col-flex-grow, 1);
+  }
+  .col-sm-auto {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .ml-sm-auto {
+    margin-left: auto;
+  }
+  .mr-sm-auto {
+    margin-right: auto;
+  }
+}
+@media (min-width: 768px) {
+  [class^="col"] {
+    --col-md: var(--col-sm);
+    --column-width: var(--col-md);
+
+    --offset-md: var(--offset-sm);
+    --column-offset: var(--offset-md);
+  }
+  .col-md {
+    flex-basis: var(--fixed-col-flex-basis, 0);
+    flex-grow: var(--fixed-col-flex-grow, 1);
+  }
+  .col-md-auto {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .ml-md-auto {
+    margin-left: auto;
+  }
+  .mr-md-auto {
+    margin-right: auto;
+  }
+}
+@media (min-width: 992px) {
+  [class^="col"] {
+    --col-lg: var(--col-md);
+    --column-width: var(--col-lg);
+
+    --offset-lg: var(--offset-md);
+    --column-offset: var(--offset-lg);
+  }
+  .col-lg {
+    flex-basis: var(--fixed-col-flex-basis, 0);
+    flex-grow: var(--fixed-col-flex-grow, 1);
+  }
+  .col-lg-auto {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .ml-lg-auto {
+    margin-left: auto;
+  }
+  .mr-lg-auto {
+    margin-right: auto;
+  }
+}
+@media (min-width: 1200px) {
+  [class^="col"] {
+    --col-xl: var(--col-lg);
+    --column-width: var(--col-xl);
+
+    --offset-xl: var(--offset-lg);
+    --column-offset: var(--offset-xl);
+  }
+  .col-xl {
+    flex-basis: var(--fixed-col-flex-basis, 0);
+    flex-grow: var(--fixed-col-flex-grow, 1);
+  }
+  .col-xl-auto {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .ml-xl-auto {
+    margin-left: auto;
+  }
+  .mr-xl-auto {
+    margin-right: auto;
+  }
+}
+
+/* helpers */
+.w-100 {
+  width: 100%;
+}
+
+/* demo styles */
+body {
+  margin: 0;
+  font: normal 100% sans-serif;
+  background-color: white;
+}
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+main {
+  padding: 30px;
+}
+.example {
+  padding: 30px 30px 15px;
+  border: 2px seashell solid;
+  margin-bottom: 30px;
+}
+.example [class^="col"] {
+  padding-top: calc( var(--grid-gutter-width) / 2);
+  padding-bottom: calc( var(--grid-gutter-width) / 2);
+  background: bisque;
+  border: 1px sandybrown solid;
+}
+.example .row {
+  margin-bottom: 15px;
+}
+.example [class^="row align"] {
+  min-height: 10rem;
+  background: antiquewhite;
+}
